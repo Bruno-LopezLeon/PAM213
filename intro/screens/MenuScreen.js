@@ -7,6 +7,7 @@ import ImageBackgroundScreen from './ImageBackgroundScreen';
 import ScrollViewScreen from './ScrollViewScreen';
 import ActivityIndicatorScreen from './ActivityIndicatorScreen';
 import FlatListScreen from './FlatListScreen';
+import SectionListScreen from './SectionListScreen';
 import ModalScreen from './ModalScreen';
 import BottomSheetScreen from './BottomSheetScreen';
 import RepasoScreen from './RepasoScreen';
@@ -29,6 +30,8 @@ export default function MenuScreen() {
             return <ActivityIndicatorScreen />
         case 'flatlist':
             return <FlatListScreen />
+        case 'section':
+            return <SectionListScreen />
         case 'modal':
             return <ModalScreen />
         case 'bottomsheet':
@@ -47,6 +50,7 @@ export default function MenuScreen() {
                      <Button title='Pract: ScrollView' onPress={()=>setScreen('scroll')}/>
                      <Button title='Pract: Activity Indicator' onPress={()=>setScreen('activity')}/>
                      <Button title='Pract: FlatList' onPress={()=>setScreen('flatlist')}/>
+                     <Button title='Pract: SectionList' onPress={()=>setScreen('section')}/>
                      <Button title='Pract: Modal' onPress={()=>setScreen('modal')}/>
                      <Button title='Pract: Bottom Sheet' onPress={()=>setScreen('bottomsheet')}/>
                      <Button title='Pract: Repaso' onPress={()=>setScreen('repaso')}/>
