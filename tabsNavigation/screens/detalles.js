@@ -1,16 +1,15 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
-export default function Settings() {
-    return (
-
-        <View style={styles.container}>
-            <View style={styles.iconRow}>
-                <Ionicons name="settings-outline" size={30} color="green" />
-                <Text style={styles.title}>Configuración de usuario</Text>
-            </View>
-        </View>
-    );
+export default function Detalles({ navigation }) {
+  return (
+    <View style={styles.container}>
+      <View style={styles.iconRow}>
+        <Ionicons name="settings-outline" size={28} color="gray" />
+        <Text style={styles.title}>Pantalla de detalles del perfil</Text>
+      </View>
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -26,9 +25,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   title: {
-    fontSize: 22,
+    fontSize: 18,
     fontWeight: 'bold',
     marginLeft: 10,
-    color: 'green',
+    color: 'gray',
   },
 });

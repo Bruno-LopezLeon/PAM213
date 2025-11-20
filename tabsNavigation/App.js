@@ -1,9 +1,10 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons } from '@expo/vector-icons';
+import 'react-native-gesture-handler';
 
 import Home from './screens/home';
-import Profile from './screens/profile';
+import ProfileStack from './screens/ProfileStack'; 
 import Settings from './screens/settings';
 
 const Tab = createBottomTabNavigator();
@@ -11,8 +12,7 @@ const Tab = createBottomTabNavigator();
 export default function App() {
   return (
     <NavigationContainer>
-      <Tab.Navigator
-        initialRouteName="Home"
+      <Tab.Navigator initialRouteName="Home"
         screenOptions={({ route }) => ({
           headerShown: false,
           tabBarIcon: ({ color, size }) => {
@@ -37,7 +37,7 @@ export default function App() {
         })}
       >
         <Tab.Screen name="Home" component={Home} />
-        <Tab.Screen name="Profile" component={Profile} />
+        <Tab.Screen name="Profile" component={ProfileStack} /> 
         <Tab.Screen name="Settings" component={Settings} />
       </Tab.Navigator>
     </NavigationContainer>
