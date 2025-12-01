@@ -42,7 +42,28 @@ export class UsuarioController {
       throw error;
     }
   }
-  // Sistema de observadores para actualizar la vista automáticamente
+
+  async actualizarUsuario(id, nombre) {
+    try {
+      Usuario.validar(nombre);
+      await DatabaseService.update(id, nombre.trim());
+      this.notifyListeners(); // Actualiza la lista automáticamente
+    } catch (error) {
+      console.error('Error al actualizar:', error);
+      throw error;
+    }
+  }
+
+  async eliminarUsuario(id) {
+    try {
+      await DatabaseService.delete(id);
+      this.notifyListeners(); // Actualiza la lista automáticamente
+    } catch (error) {
+      console.error('Error al eliminar:', error);
+      throw error;
+    }
+  }
+
   addListener(callback) {
     this.listeners.push(callback);
   }

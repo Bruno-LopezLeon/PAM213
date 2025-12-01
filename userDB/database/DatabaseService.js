@@ -11,7 +11,6 @@ class DatabaseService {
       console.log('Usando LocalStorage para almacenamiento de datos en web.');
     } else {
       console.log('Usando SQLite para móvil.');
-      // Importamos SQLite solo si estamos en móvil para evitar errores en Web
       const SQLite = require("expo-sqlite"); 
       
       this.db = await SQLite.openDatabaseAsync("miapp.db");
@@ -30,7 +29,6 @@ class DatabaseService {
       const data = localStorage.getItem(this.storageKey);
       return data ? JSON.parse(data) : [];
     } else {
-      // expo-sqlite devuelve los resultados directamente en una lista
       return await this.db.getAllAsync("SELECT * FROM usuarios ORDER BY id DESC");
     }
   }
@@ -50,11 +48,10 @@ class DatabaseService {
       return nuevoUsuario;
 
     } else {
-      // SQLite INSERT
       const result = await this.db.runAsync(
         'INSERT INTO usuarios(nombre, fecha_creacion) VALUES(?, ?)',
         nombre,
-        new Date().toISOString() // Guardamos la fecha manual para que coincida el formato
+        new Date().toISOString()
       );
       
       return {
@@ -62,6 +59,35 @@ class DatabaseService {
         nombre,
         fecha_creacion: new Date().toISOString()
       };
+    }
+  }
+
+  async update(id, nuevoNombre) {
+    if (Platform.OS === 'web') {
+      const usuarios = await this.getAll();
+      const index = usuarios.findIndex(u => u.id === id);
+      if (index !== -1) {
+        usuarios[index].nombre = nuevoNombre;
+        localStorage.setItem(this.storageKey, JSON.stringify(usuarios));
+      }
+    } else {
+      await this.db.runAsync(
+        'UPDATE usuarios SET nombre = ? WHERE id = ?',
+        nuevoNombre, id
+      );
+    }
+  }
+
+  async delete(id) {
+    if (Platform.OS === 'web') {
+      const usuarios = await this.getAll();
+      const nuevosUsuarios = usuarios.filter(u => u.id !== id);
+      localStorage.setItem(this.storageKey, JSON.stringify(nuevosUsuarios));
+    } else {
+      await this.db.runAsync(
+        'DELETE FROM usuarios WHERE id = ?',
+        id
+      );
     }
   }
 }
